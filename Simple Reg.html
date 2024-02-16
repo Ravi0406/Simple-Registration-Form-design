@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Member Registration</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        body {
+            background-color: #f0f0f0; /* Set the background color for the entire page */
+        }
+
+        h1 {
+            background-color: #333; /* Set the background color for the heading */
+            color: white; /* Set text color */
+            padding: 10px; /* Add some padding to the heading */
+        }
+
+        form {
+            background-color: #fff; /* Set the background color for the form */
+            padding: 20px; /* Add some padding to the form */
+            border-radius: 10px; /* Add rounded corners to the form */
+        }
+
+        label {
+            display: block; /* Display labels on separate lines */
+            margin-bottom: 10px; /* Add spacing between labels */
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%; /* Make input fields 100% wide */
+            padding: 10px; /* Add padding to input fields */
+            margin-bottom: 10px; /* Add spacing between input fields */
+            border: 1px solid #ccc; /* Add a border to input fields */
+            border-radius: 5px; /* Add rounded corners to input fields */
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            background-color: #333; /* Set background color for buttons */
+            color: white; /* Set text color for buttons */
+            padding: 10px 20px; /* Add padding to buttons */
+            border: none; /* Remove button borders */
+            border-radius: 5px; /* Add rounded corners to buttons */
+            cursor: pointer; /* Add pointer cursor to buttons */
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background-color: #555; /* Change button background color on hover */
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function validateForm() {
+            // Get form inputs
+            var firstName = document.forms["registration"]["firstName"].value;
+            var lastName = document.forms["registration"]["lastName"].value;
+            var address = document.forms["registration"]["address"].value;
+            var city = document.forms["registration"]["city"].value;
+            var postalCode = document.forms["registration"]["postalCode"].value;
+            var province = document.forms["registration"]["province"].value;
+            var age = document.forms["registration"]["age"].value;
+            var password = document.forms["registration"]["password"].value;
+            var confirmPassword = document.forms["registration"]["confirmPassword"].value;
+            var email = document.forms["registration"]["email"].value;
+
+            // Regular expressions for postal code, email, and password
+            var postalCodePattern = /^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/;
+            var emailPattern = /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/;
+            var passwordPattern = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
+
+            // Validation checks
+            if (firstName === "" || lastName === "" || address === "" || city === "" ||
+                postalCode === "" || province === "" || age === "" || password === "" || confirmPassword === "" || email === "") {
+                alert("All fields are mandatory. Please complete the form.");
+                return false;
+            }
+
+            if (!postalCodePattern.test(postalCode)) {
+                alert("Postal code must be in the format A0A 0A0.");
+                return false;
+            }
+
+            if (!/^(NS|NF|PE|NB|QC|ON|MN|SK|AB|BC)$/.test(province)) {
+                alert("Invalid province. Please use two-letter abbreviations.");
+                return false;
+            }
+
+            if (isNaN(age) || age < 18) {
+                alert("Age must be at least 18 years old.");
+                return false;
+            }
+
+            if (!emailPattern.test(email)) {
+                alert("Invalid email format.");
+                return false;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Password and Confirm Password do not match.");
+                return false;
+            }
+
+            if (!passwordPattern.test(password)) {
+                alert("Password must have at least 6 characters, one digit, and one uppercase character.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <h1>Member Registration</h1>
+    <form name="registration" onsubmit="return validateForm()" method="post">
+        <p>Please complete all the fields below:</p>
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" name="firstName"><br><br>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" name="lastName"><br><br>
+
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address"><br><br>
+
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city"><br><br>
+
+        <label for="postalCode">Postal Code:</label>
+        <input type="text" id="postalCode" name="postalCode"><br><br>
+
+        <label for="province">Province:</label>
+        <input type="text" id="province" name="province"><br><br>
+
+        <label for="age">Age:</label>
+        <input type="text" id="age" name="age"><br><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br><br>
+
+        <label for="confirmPassword">Confirm Password:</label>
+        <input type="password" id="confirmPassword" name="confirmPassword"><br><br>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email"><br><br>
+
+        <input type="submit" value="Register Now">
+        <input type="reset" value="Clear Form">
+    </form>
+    <p>© Copyright your student info here</p>
+</body>
+</html>
